@@ -6,28 +6,51 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of MarConsNetPipeline is to …
-
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+The goal of MarConsNetPipeline is house the R-based Reproducible
+Analytical Pipeline (RAP) for the monitoring and reporting on the
+Maritimes Conservation Network.
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+require(targets)
+#> Loading required package: targets
+tar_make()
+#> ✔ skipped target ind_placeholder_1_df
+#> ✔ skipped target ind_placeholder_2_df
+#> ✔ skipped target ind_placeholder_4_df
+#> ✔ skipped target ind_placeholder_3_df
+#> ✔ skipped target ind_placeholder_11_df
+#> ✔ skipped target ind_placeholder_10_df
+#> ✔ skipped target ind_placeholder_6_df
+#> ✔ skipped target ind_placeholder_5_df
+#> ✔ skipped target ind_placeholder_7_df
+#> ✔ skipped target ind_placeholder_9_df
+#> ✔ skipped target ind_placeholder_8_df
+#> ✔ skipped target bin_biodiversity_FunctionalDiversity_df
+#> ✔ skipped target bin_biodiversity_GeneticDiversity_df
+#> ✔ skipped target bin_habitat_Connectivity_df
+#> ✔ skipped target bin_biodiversity_SpeciesDiversity_df
+#> ✔ skipped target bin_productivity_ThreatstoProductivity_df
+#> ✔ skipped target bin_productivity_StructureandFunction_df
+#> ✔ skipped target bin_habitat_KeyFishHabitat_df
+#> ✔ skipped target bin_habitat_EnvironmentalRepresentativity_df
+#> ✔ skipped target bin_habitat_ThreatstoHabitat_df
+#> ✔ skipped target bin_productivity_BiomassMetrics_df
+#> ✔ skipped target bin_habitat_Uniqueness_df
+#> ✔ skipped target ecol_obj_biodiversity_df
+#> ✔ skipped target ecol_obj_productivity_df
+#> ✔ skipped target ecol_obj_habitat_df
+#> ✔ skipped target pillar_ecol_df
+#> ✔ skipped target flowerplot
+#> ✔ skipped pipeline [0.19 seconds]
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
+``` r
+tar_visnetwork(degree_from = 6, degree_to = 0)
+```
 
-You can also embed plots, for example:
+``` r
+tar_load("flowerplot")
+flowerplot
+```
 
-![](README_files/figure-gfm/pressure-1.png)<!-- -->
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub.
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
