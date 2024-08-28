@@ -1,6 +1,6 @@
 library(targets)
 
-tar_option_set(format = "qs",
+tar_option_set(format = "feather",
                packages = c("dplyr"))
 
 
@@ -13,6 +13,8 @@ sapply(c(list.files("../MarConsNetAnalysis/R/","ind_",full.names = TRUE),
 
 # End this file with a list of target objects.
 list(
+
+  ##### Indicators #####
   tar_target(ind_placeholder_1_df,ind_placeholder()),
   tar_target(ind_placeholder_2_df,ind_placeholder()),
   tar_target(ind_placeholder_3_df,ind_placeholder()),
@@ -25,6 +27,7 @@ list(
   tar_target(ind_placeholder_10_df,ind_placeholder()),
   tar_target(ind_placeholder_11_df,ind_placeholder()),
 
+  ##### Indicator Bins #####
   tar_target(bin_biodiversity_FunctionalDiversity_df,
              aggregate_groups("bin",
                "Functional Diversity",
@@ -34,7 +37,7 @@ list(
   tar_target(bin_biodiversity_GeneticDiversity_df,
              aggregate_groups("bin",
                "Genetic Diversity",
-               weights=1,
+               weights=c(1,1),
                ind_placeholder_1_df,
                ind_placeholder_2_df
              )),
@@ -94,6 +97,7 @@ list(
              )),
 
 
+  ##### Ecological Objectives #####
   tar_target(ecol_obj_biodiversity_df,
              aggregate_groups("objective",
                               "Biodiversity",
@@ -118,6 +122,9 @@ list(
                                    bin_productivity_StructureandFunction_df,
                                    bin_productivity_ThreatstoProductivity_df)),
 
+
+
+  ##### Pillar #####
   tar_target(pillar_ecol_df,aggregate_groups("pillar",
                                              "Ecological",
                                              weights = NA,
@@ -125,11 +132,14 @@ list(
                                         ecol_obj_habitat_df,
                                         ecol_obj_productivity_df)),
 
+
+  ##### Flower Plot #####
   tar_target(flowerplot,
              plot_flowerplot(pillar_ecol_df,
                   grouping = "objective",
                   labels = "bin",
                   score = "ind_value"),
-             packages = "ggplot2")
+             packages = "ggplot2",
+             format = "qs")
 )
 
