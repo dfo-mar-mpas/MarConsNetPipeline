@@ -77,12 +77,17 @@ tar_visnetwork_summary <- function(keyDescriptions=c("bin","indicator","pillar")
 
   # Create the network visualization with visNetwork
   visNetwork(nodes = filtered_nodes, edges = id_edges) |>
-    visEdges(arrows = 'to') |>
-    visNodes(color = list(border = "black", highlight = "yellow")) |>
+    visEdges(arrows = 'to',
+             physics = FALSE,
+             # color = "black",
+             smooth = list(enabled = TRUE,type="cubicBezier",forceDirection="horizontal")) |>
+    visNodes(color = list(highlight = "yellow"),
+             physics = FALSE) |>
     visOptions(highlightNearest = list(enabled = TRUE,
                                        algorithm = "hierarchical",
-                                       degree = list(from = 6, to = 0),
+                                       degree = list(from = 6, to = 0)
                                        )) |>
-    visHierarchicalLayout(direction = "RL")
+    visHierarchicalLayout(direction = "RL",
+                          levelSeparation = 200)
 
 }
