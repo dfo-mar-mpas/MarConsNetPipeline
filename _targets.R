@@ -27,13 +27,13 @@ list(
   tar_target(name=consAreas,
              data_CPCAD_areas(bioregion,zones=TRUE),
              format = "qs",
-             packages = c("sf","arcpullr"),
+             packages = c("sf","arcpullr")),
 
   tar_target(name = all_areas,
              bind_rows(bioregion,
                        consAreas),
              format = "qs",
-             packages = c("sf","arcpullr"),
+             packages = c("sf","arcpullr")),
 
   ##### Indicators #####
   tar_target(ind_placeholder_1_df,ind_placeholder()),
@@ -163,4 +163,3 @@ list(
              packages = "ggplot2",
              format = "qs")
 )
-
