@@ -1,5 +1,8 @@
 library(targets)
 
+tar_config_set(store = file.path(Sys.getenv("OneDriveCommercial"),"MarConsNetTargets","pipeline_targets"))
+
+
 tar_option_set(format = "feather",
                packages = c("dplyr"))
 
@@ -7,12 +10,30 @@ tar_option_set(format = "feather",
 sapply(c(list.files("../MarConsNetAnalysis/R/","ind_",full.names = TRUE),
          "../MarConsNetAnalysis/R/aggregate_groups.R",
          "../MarConsNetAnalysis/R/plot_flowerplot.R",
-         "../MarConsNetAnalysis/R/calc_letter_grade.R"),source,.GlobalEnv)
+         "../MarConsNetData/R/data_bioregion.R",
+         "../MarConsNetData/R/data_CPCAD_areas.R"),source,.GlobalEnv)
 
 
 
 # End this file with a list of target objects.
 list(
+  ##### Areas #####
+  tar_target(name=bioregion,
+             data_bioregion(),
+             format = "qs",
+             packages = c("sf","arcpullr")),
+
+  # get the Protected and Conserved areas in the bioregion
+  tar_target(name=consAreas,
+             data_CPCAD_areas(bioregion,zones=TRUE),
+             format = "qs",
+             packages = c("sf","arcpullr"),
+
+  tar_target(name = all_areas,
+             bind_rows(bioregion,
+                       consAreas),
+             format = "qs",
+             packages = c("sf","arcpullr"),
 
   ##### Indicators #####
   tar_target(ind_placeholder_1_df,ind_placeholder()),
