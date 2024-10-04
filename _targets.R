@@ -156,10 +156,10 @@ list(
 
   ##### Flower Plot #####
   tar_target(flowerplot,
-             plot_flowerplot(pillar_ecol_df,
+             plot_flowerplot(pillar_ecol_df[pillar_ecol_df$area_name=="Scotian Shelf",],
                   grouping = "objective",
                   labels = "bin",
-                  score = "ind_value"),
+                  score = "ind_status"),
              packages = "ggplot2",
              format = "qs")
 )
